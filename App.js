@@ -11,6 +11,7 @@ import Dashboard from "./src/component/pages/Dashboard";
 import PemulaDashboard from "./src/component/pages/PemulaDashboard";
 import MenengahDashboard from "./src/component/pages/MenengahDashboard";
 import LanjutanDashboard from "./src/component/pages/LanjutanDashboard";
+
 // perut pemula
 import PerutPemula from "./src/component/pages/gerakan_perut_pemula/PerutPemula";
 import PersiapanGerakan from "./src/component/pages/gerakan_perut_pemula/gerakan/PersiapanGerakan";

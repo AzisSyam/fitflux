@@ -123,7 +123,7 @@ const Login = () => {
       >
         <Text style={styles.tittle}>Masuk</Text>
         <TextInput
-          style={styles.textInput1}
+          style={styles.textInput}
           placeholder="Email"
           placeholderTextColor="#888"
           onChangeText={(email) => setEmail(email)}
@@ -131,7 +131,7 @@ const Login = () => {
           autoCorrect={false}
         />
         <TextInput
-          style={styles.textInput2}
+          style={styles.textInput}
           placeholder="Password"
           placeholderTextColor="#888"
           onChangeText={(password) => setPassword(password)}
@@ -144,13 +144,13 @@ const Login = () => {
             onPress={() =>
               navigation.navigate("Registration")
             }
-            style={styles.styleButton2}
+            style={styles.styleButton1}
           >
             <Text style={styles.textButton2}>Daftar</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => loginUser(email, password)}
-            style={styles.styleButton1}
+            style={styles.styleButton2}
           >
             <Text style={styles.textButton1}>Mulai</Text>
           </TouchableOpacity>
@@ -177,10 +177,9 @@ const styles = StyleSheet.create({
   containerButton: {
     display: "flex",
     flexDirection: "row",
-    position: "relative",
-    left: -70,
+    width: 305,
     marginTop: 48,
-    gap: 12,
+    justifyContent: 'space-between',
   },
   textForget: {
     textAlign: "center",
@@ -190,25 +189,25 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Medium",
   },
   styleButton1: {
-    width: 155,
-    height: 70,
-    backgroundColor: "#293241",
-    borderRadius: 24,
-    position: "relative",
-    left: 60,
-    transform: [{ scale: 0.9 }],
-  },
-  styleButton2: {
-    width: 155,
+    width: "45%",
     height: 70,
     borderWidth: 2,
     borderColor: "#888",
     borderStyle: "solid",
     backgroundColor: "transparent",
     borderRadius: 24,
-    position: "relative",
-    left: 60,
-    transform: [{ scale: 0.9 }],
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  styleButton2: {
+    width: "45%",
+    height: 70,
+    borderRadius: 24,
+    backgroundColor: "#293241",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   textButton1: {
     textAlign: "center",
@@ -224,16 +223,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "Roboto-Medium",
   },
-  textInput1: {
-    padding: 20,
-    width: 305,
-    borderRadius: 12,
-    fontSize: 16,
-    borderWidth: 2,
-    borderColor: "#888",
-    marginTop: 45,
-  },
-  textInput2: {
+  textInput: {
     padding: 20,
     width: 305,
     borderRadius: 12,
@@ -253,6 +243,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
     display: "flex",
+    alignItems: "center",
     padding: 60,
   },
   image: {

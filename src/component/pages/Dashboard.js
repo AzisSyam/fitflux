@@ -25,8 +25,7 @@ export default class Dashboard extends Component {
   motivation = [
     {
       personMotivation: "Aomine daiki",
-      quoteMotivation:
-        "“The only one who can beat me is me”",
+      quoteMotivation: "“The only one who can beat me is me”",
     },
     {
       personMotivation: "Marsha doble",
@@ -46,13 +45,10 @@ export default class Dashboard extends Component {
   ];
 
   componentDidMount() {
-    const focusHandler = this.props.navigation.addListener(
-      "focus",
-      () => {
-        this.updateDataSetelahLatihan();
-        this.tampilkanHistory();
-      }
-    );
+    const focusHandler = this.props.navigation.addListener("focus", () => {
+      this.updateDataSetelahLatihan();
+      this.tampilkanHistory();
+    });
 
     return focusHandler;
   }
@@ -80,8 +76,7 @@ export default class Dashboard extends Component {
           if (snapshot.exists) {
             this.setState({
               data: snapshot.data(),
-              historyLatihan:
-                snapshot.data().historyLatihan,
+              historyLatihan: snapshot.data().historyLatihan,
             });
             console.log(
               "Panjang history latihan",
@@ -142,7 +137,9 @@ export default class Dashboard extends Component {
       if (jumlahDetik > 59) {
         const sisaMenit = Math.floor(jumlahDetik / 60);
         const sisaDetik = jumlahDetik % 60;
-        return `${jumlahMenit + sisaMenit},${sisaDetik.toString().padStart(2, "0")}`;
+        return `${jumlahMenit + sisaMenit},${sisaDetik
+          .toString()
+          .padStart(2, "0")}`;
       } else {
         return `${jumlahMenit}:${jumlahDetik.toString().padStart(2, "0")}`;
       }
@@ -150,44 +147,13 @@ export default class Dashboard extends Component {
       return "0";
     }
   };
-  
-
-  // hitungJumlahDurasiMenit = () => {
-  //   const { historyLatihan } = this.state;
-  //   if (historyLatihan.length !== 0) {
-  //     const totalDetik = historyLatihan.reduce(
-  //       (total, item) => total + item.menitDurasiAkhir * 60, // Mengalikan menit dengan 60 untuk mengonversi ke detik
-  //       0
-  //     );
-
-  //     const totalMenit = Math.floor(totalDetik / 60); // Menghitung jumlah menit
-  //     const sisaDetik = totalDetik % 60; // Menghitung sisa detik setelah dikonversi ke menit
-
-  //     return `${totalMenit}:${sisaDetik
-  //       .toString()
-  //       .padStart(2, "0")}`; // Format tampilan menit:sisa detik
-  //   } else {
-  //     console.log("Array kosong");
-  //     return "0";
-  //   }
-  // };
-
-  // hitungJumlahDurasi = () => {
-  //   const totalKalori = this.historyLatihan.reduce(
-  //     (total, item) => total + item.menitDurasiAkhir,
-  //     0
-  //   );
-  //   return totalKalori;
-  // };
 
   tampilkanHistory = () => {
     const { historyLatihan } = this.state;
     if (!historyLatihan || historyLatihan.length === 0) {
       return (
         <View style={styles.noHistoryContainer}>
-          <Text style={styles.noHistoryText}>
-            Belum ada latihan
-          </Text>
+          <Text style={styles.noHistoryText}>Belum ada latihan</Text>
           <Image
             source={require("../../../assets/images/no_history.png")}
             style={styles.noHistoryImage}
@@ -218,15 +184,10 @@ export default class Dashboard extends Component {
 
       return (
         <View style={styles.card} key={index}>
-          <Image
-            source={gambarHistory}
-            style={styles.cardImage}
-          />
+          <Image source={gambarHistory} style={styles.cardImage} />
           <View style={styles.cardTextContainer}>
             <View style={styles.cardTextTop}>
-              <Text style={styles.cardTextTopText}>
-                {card.jenisLatihan}
-              </Text>
+              <Text style={styles.cardTextTopText}>{card.jenisLatihan}</Text>
               <View style={styles.cardTextTopCircle}></View>
               <Text style={styles.cardTextTopText}>
                 {card.tingkatanLatihan}
@@ -236,46 +197,29 @@ export default class Dashboard extends Component {
             <View style={styles.cardTextBottom}>
               <View style={styles.cardTextBottomContainer}>
                 <Text style={styles.cardTextBottomText}>
-                  {card.tanggal
-                    .toDate()
-                    .toLocaleString("id-ID", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+                  {card.tanggal.toDate().toLocaleString("id-ID", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
                 </Text>
                 <Text style={styles.cardTextBottomText}>
                   {card.tanggal.toDate().getDate()}{" "}
-                  {card.tanggal
-                    .toDate()
-                    .toLocaleString("id-ID", {
-                      month: "long",
-                    })}
+                  {card.tanggal.toDate().toLocaleString("id-ID", {
+                    month: "long",
+                  })}
                 </Text>
               </View>
               <View style={styles.cardTextBottomContainer}>
                 <Text style={styles.cardTextBottomText}>
-                  {String(card.menitDurasiAkhir).padStart(
-                    2,
-                    "0"
-                  )}{" "}
-                  :{" "}
-                  {String(card.detikDurasiAkhir).padStart(
-                    2,
-                    "0"
-                  )}
+                  {String(card.menitDurasiAkhir).padStart(2, "0")} :{" "}
+                  {String(card.detikDurasiAkhir).padStart(2, "0")}
                 </Text>
 
-                <Text style={styles.cardTextBottomText}>
-                  Durasi
-                </Text>
+                <Text style={styles.cardTextBottomText}>Durasi</Text>
               </View>
               <View style={styles.cardTextBottomContainer}>
-                <Text style={styles.cardTextBottomText}>
-                  {card.kalori}
-                </Text>
-                <Text style={styles.cardTextBottomText}>
-                  Kkal
-                </Text>
+                <Text style={styles.cardTextBottomText}>{card.kalori}</Text>
+                <Text style={styles.cardTextBottomText}>Kkal</Text>
               </View>
             </View>
           </View>
@@ -322,9 +266,7 @@ export default class Dashboard extends Component {
             onPress={this.handleLogout}
             style={styles.navTopButton}
           >
-            <Text style={styles.navTopButtonText}>
-              Keluar
-            </Text>
+            <Text style={styles.navTopButtonText}>Keluar</Text>
           </TouchableOpacity>
         </View>
 
@@ -334,12 +276,8 @@ export default class Dashboard extends Component {
             style={styles.greyContainer}
           />
           <View style={styles.rectangle1}>
-            <Text style={styles.text1}>
-              {data && `Hai ${data.lastName}`}
-            </Text>
-            <Text style={styles.text2}>
-              Jaga tubuh kuat
-            </Text>
+            <Text style={styles.text1}>{data && `Hai ${data.lastName}`}</Text>
+            <Text style={styles.text2}>Jaga tubuh kuat</Text>
             <Text style={styles.text3}>Bersama kami</Text>
             <Image
               source={require("../../../assets/images/logoDashboard.png")}
@@ -367,9 +305,7 @@ export default class Dashboard extends Component {
               <Text style={styles.calorieCountText}>
                 {this.hitungJumlahKalori()}
               </Text>
-              <Text style={styles.caloriWeekText}>
-                Kalori / minggu
-              </Text>
+              <Text style={styles.caloriWeekText}>Kalori / minggu</Text>
             </View>
             <View style={styles.rightKaloriTimeWeek}>
               <Text style={styles.timeCountText}>
@@ -379,15 +315,11 @@ export default class Dashboard extends Component {
                 source={require("../../../assets/images/time.png")}
                 style={styles.timeImage}
               />
-              <Text style={styles.timeWeekText}>
-                Menit / minggu
-              </Text>
+              <Text style={styles.timeWeekText}>Menit / minggu</Text>
             </View>
           </View>
 
-          <Text style={styles.historyText}>
-            History Latihan
-          </Text>
+          <Text style={styles.historyText}>History Latihan</Text>
 
           <View style={styles.historyContainer}>
             <ScrollView
@@ -403,21 +335,12 @@ export default class Dashboard extends Component {
               autoplay
               autoplayTimeout={5}
               dot={<View style={styles.dot} />}
-              activeDot={
-                <View
-                  style={[styles.dot, styles.activeDot]}
-                />
-              }
+              activeDot={<View style={[styles.dot, styles.activeDot]} />}
             >
               {this.motivation.map((item, index) => (
-                <View
-                  key={index}
-                  style={styles.motivationCard}
-                >
+                <View key={index} style={styles.motivationCard}>
                   <View style={styles.cardMotivationPerson}>
-                    <Text
-                      style={styles.textMotivationPerson}
-                    >
+                    <Text style={styles.textMotivationPerson}>
                       {item.personMotivation}
                     </Text>
                   </View>
@@ -432,91 +355,48 @@ export default class Dashboard extends Component {
           {/* card navigation container */}
           <View style={styles.cardNavigationContainer}>
             {cardNavigation.map((cardNav, index) => (
-              <View
-                style={styles.cardNavigation}
-                key={index}
-              >
+              <View style={styles.cardNavigation} key={index}>
                 <Image
                   source={cardNav.imageSource}
                   style={styles.imageCardNavigation}
                 />
                 <View style={styles.cardBlur}></View>
                 <View style={styles.cardNavigationBottom}>
-                  <Text
-                    style={styles.cardNavigationBottomLevel}
-                  >
+                  <Text style={styles.cardNavigationBottomLevel}>
                     {cardNav.level}
                   </Text>
-                  <View
-                    style={
-                      styles.cardNavigationBottomCalorieTime
-                    }
-                  >
-                    <View
-                      style={
-                        styles.cardNavigationBottomCalorie
-                      }
-                    >
+                  <View style={styles.cardNavigationBottomCalorieTime}>
+                    <View style={styles.cardNavigationBottomCalorie}>
                       <Image
                         source={require("../../../assets/images/calori_red.png")}
                         style={styles.caloriImage2}
                       />
-                      <View
-                        style={
-                          styles.cardNavigationBottomCalorieTimeText
-                        }
-                      >
-                        <Text
-                          style={
-                            styles.cardNavigationTextRegular
-                          }
-                        >
+                      <View style={styles.cardNavigationBottomCalorieTimeText}>
+                        <Text style={styles.cardNavigationTextRegular}>
                           {cardNav.calories}
                         </Text>
-                        <Text
-                          style={
-                            styles.cardNavigationTextMedium
-                          }
-                        >
+                        <Text style={styles.cardNavigationTextMedium}>
                           Kalori
                         </Text>
                       </View>
                     </View>
-                    <View
-                      style={
-                        styles.cardNavigationBottomTime
-                      }
-                    >
+                    <View style={styles.cardNavigationBottomTime}>
                       <Image
                         source={require("../../../assets/images/time_green.png")}
                         style={styles.timeImage2}
                       />
-                      <View
-                        style={
-                          styles.cardNavigationBottomCalorieTimeText
-                        }
-                      >
-                        <Text
-                          style={
-                            styles.cardNavigationTextRegular
-                          }
-                        >
+                      <View style={styles.cardNavigationBottomCalorieTimeText}>
+                        <Text style={styles.cardNavigationTextRegular}>
                           {cardNav.time}
                         </Text>
-                        <Text
-                          style={
-                            styles.cardNavigationTextMedium
-                          }
-                        >
+                        <Text style={styles.cardNavigationTextMedium}>
                           Menit
                         </Text>
                       </View>
                     </View>
                   </View>
                   <TouchableOpacity
-                    onPress={() =>
-                      tombolPindah(cardNav.navigateTo)
-                    }
+                    onPress={() => tombolPindah(cardNav.navigateTo)}
                     style={styles.styleButton}
                   >
                     <Image
@@ -834,15 +714,19 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 12,
     shadowColor: "#888",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
+    shadowOpacity: 0.26,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 10,
+    elevation: 3,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 40,
     marginTop: 30,
     marginLeft: 12,
+    borderColor: "#333",
+    borderWidth: 2,
+    borderStyle: "solid",
   },
   textMotivationQoutes: {
     fontSize: 14,

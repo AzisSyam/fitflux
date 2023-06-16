@@ -18,36 +18,25 @@ const Registration = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
-  const registerUser = async (
-    email,
-    password,
-    firstName,
-    lastName
-  ) => {
+  const registerUser = async (email, password, firstName, lastName) => {
     if (!email || !password || !firstName || !lastName) {
       alert("Mohon lengkapi semua input sebelum mendaftar");
       return;
     }
     try {
-      await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
       const currentUser = firebase.auth().currentUser;
       await currentUser.sendEmailVerification({
         handleCodeInApp: true,
         url: "https://fitflux-b7e65.firebaseapp.com",
       });
       alert("Akun telah terdaftar silahkan login");
-      await firebase
-        .firestore()
-        .collection("users")
-        .doc(currentUser.uid)
-        .set({
-          firstName,
-          lastName,
-          email,
-          historyLatihan: [],
-        });
+      await firebase.firestore().collection("users").doc(currentUser.uid).set({
+        firstName,
+        lastName,
+        email,
+        historyLatihan: [],
+      });
     } catch (error) {
       alert(error.message);
     }
@@ -65,23 +54,21 @@ const Registration = () => {
           <Text style={styles.tittle}>Daftar</Text>
         </Text>
         <TextInput
-          style={styles.textInput1}
+          style={styles.textInput}
           placeholder="First Name"
           placeholderTextColor="#888"
-          onChangeText={(firstName) =>
-            setFirstName(firstName)
-          }
+          onChangeText={(firstName) => setFirstName(firstName)}
           autoCorrect={false}
         />
         <TextInput
-          style={styles.textInput2}
+          style={styles.textInput}
           placeholder="Last Name"
           placeholderTextColor="#888"
           onChangeText={(lastName) => setLastName(lastName)}
           autoCorrect={false}
         />
         <TextInput
-          style={styles.textInput1}
+          style={styles.textInput}
           placeholder="Email"
           placeholderTextColor="#888"
           onChangeText={(email) => setEmail(email)}
@@ -89,32 +76,27 @@ const Registration = () => {
           keyboardType="email-address"
         />
         <TextInput
-          style={styles.textInput2}
+          style={styles.textInput}
           placeholder="Password"
           placeholderTextColor="#888"
           onChangeText={(password) => setPassword(password)}
           autoCorrect={false}
           secureTextEntry={true}
         />
-        <TouchableOpacity
-          onPress={() =>
-            registerUser(
-              email,
-              password,
-              firstName,
-              lastName
-            )
-          }
-          style={styles.styleButton1}
-        >
-          <Text style={styles.textButton1}>Daftar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Login")}
-          style={styles.styleButton2}
-        >
-          <Text style={styles.textButton2}>Kembali</Text>
-        </TouchableOpacity>
+        <View style={styles.containerButton}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Login")}
+            style={styles.styleButton1}
+          >
+            <Text style={styles.textButton1}>Kembali</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => registerUser(email, password, firstName, lastName)}
+            style={styles.styleButton2}
+          >
+            <Text style={styles.textButton2}>Daftar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -151,59 +133,57 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 100,
     borderBottomLeftRadius: 100,
     display: "flex",
-    padding: 60,
+    alignItems: "center",
     paddingTop: 70,
   },
-  textInput1: {
+  textInput: {
     padding: 20,
     width: 305,
     borderRadius: 12,
     fontSize: 16,
     borderWidth: 2,
     borderColor: "#888",
-    marginTop: 35,
+    marginTop: 25,
   },
-  textInput2: {
-    padding: 20,
+  containerButton: {
+    display: "flex",
+    flexDirection: "row",
     width: 305,
-    borderRadius: 12,
-    fontSize: 16,
-    borderWidth: 2,
-    borderColor: "#888",
-    marginTop: 26,
+    marginTop: 25,
+    justifyContent: "space-between",
   },
   styleButton1: {
-    width: 155,
+    width: "45%",
     height: 70,
-    backgroundColor: "#293241",
-    borderRadius: 24,
-    position: "relative",
-    left: 150,
-    top: 45,
-    transform: [{ scale: 0.9 }],
-  },
-  styleButton2: {
-    width: 155,
-    height: 70,
+    borderWidth: 2,
+    borderColor: "#888",
+    borderStyle: "solid",
     backgroundColor: "transparent",
     borderRadius: 24,
-    transform: [{ scale: 0.9 }],
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
+  styleButton2: {
+    width: "45%",
+    height: 70,
+    borderRadius: 24,
+    backgroundColor: "#293241",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
   textButton1: {
-    textAlign: "center",
-    color: "#fff",
-    lineHeight: 70,
+    color: "#444",
     fontSize: 20,
     fontFamily: "Roboto-Medium",
   },
   textButton2: {
-    fontSize: 16,
-    color: "#444",
+    color: "#ffff",
+    fontSize: 20,
     fontFamily: "Roboto-Medium",
-    marginLeft: 10,
-    paddingHorizontal:10,
   },
-
 });
 
 export default Registration;

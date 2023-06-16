@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "fitflux",
+    "owner": "azissyam98",
     "slug": "fitflux",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,7 +20,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/splash.png",
         "backgroundColor": "#ffffff"
       }
     },
@@ -28,7 +29,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "175bd9a2-e57c-48ed-8ff0-ba455fd5057e"
+        "projectId": "e3da0c34-cb1c-45d3-98d0-4e67aed5e2f3"
       }
     },
     "runtimeVersion": {
