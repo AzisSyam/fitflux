@@ -28,7 +28,8 @@ const Registration = () => {
       const currentUser = firebase.auth().currentUser;
       await currentUser.sendEmailVerification({
         handleCodeInApp: true,
-        url: "https://fitflux-b7e65.firebaseapp.com",
+        url: "https://fitflux-8637c.firebaseapp.com",
+        // url: "https://console.firebase.google.com/project/fitflux-8637c/authentication/providers?hl=id",
       });
       alert("Akun telah terdaftar silahkan login");
       await firebase.firestore().collection("users").doc(currentUser.uid).set({

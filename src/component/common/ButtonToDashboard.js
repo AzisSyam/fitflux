@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { StyleSheet, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const ButtonToDashboard = () => {
@@ -28,16 +24,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 100,
     transform: [{ scale: 1.1 }, { rotate: "180deg" }],
-    shadowColor: "#333",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.2,
-    shadowRadius: 7,
+    shadowColor: "#88888",
+    shadowOpacity: 0.45,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 15,
+    elevation: 7,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    left: 50,
-    bottom: 70,
+    left: 30,
+    bottom: 60,
   },
   imageButton: {
     width: 22,

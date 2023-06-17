@@ -233,6 +233,7 @@ export default class Dashboard extends Component {
       this.props.navigation.navigate(navigateTo);
     };
     const { data } = this.state;
+    console.log("data: ",data);
     const cardNavigation = [
       {
         imageSource: require("../../../assets/images/opening_1.png"),
@@ -277,6 +278,7 @@ export default class Dashboard extends Component {
           />
           <View style={styles.rectangle1}>
             <Text style={styles.text1}>{data && `Hai ${data.lastName}`}</Text>
+            {/* <Text style={styles.text1}>Hi</Text> */}
             <Text style={styles.text2}>Jaga tubuh kuat</Text>
             <Text style={styles.text3}>Bersama kami</Text>
             <Image
@@ -639,7 +641,6 @@ const styles = StyleSheet.create({
   noHistoryImage: {
     width: 120,
     height: 150,
-
     transform: [{ scale: 0.8 }],
   },
   card: {
@@ -713,20 +714,17 @@ const styles = StyleSheet.create({
     height: 125,
     backgroundColor: "white",
     borderRadius: 12,
-    shadowColor: "#888",
-    shadowOpacity: 0.26,
+    shadowColor: "#88888",
+    shadowOpacity: 0.45,
     shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 10,
-    elevation: 3,
+    shadowRadius: 15,
+    elevation: 7,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 40,
     marginTop: 30,
     marginLeft: 12,
-    borderColor: "#333",
-    borderWidth: 2,
-    borderStyle: "solid",
   },
   textMotivationQoutes: {
     fontSize: 14,
