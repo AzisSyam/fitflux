@@ -264,6 +264,7 @@ const App = () => {
         <Stack.Screen
           name="NestedScreens"
           options={{ headerShown: false }}
+          initialRouteName="PerutPemula"
         >
           {() => (
             <NestedStack.Navigator

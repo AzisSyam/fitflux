@@ -78,10 +78,6 @@ export default class Dashboard extends Component {
               data: snapshot.data(),
               historyLatihan: snapshot.data().historyLatihan,
             });
-            console.log(
-              "Panjang history latihan",
-              snapshot.data().historyLatihan.length
-            );
           } else {
             console.log("user does not exist");
           }
@@ -98,7 +94,6 @@ export default class Dashboard extends Component {
       );
       return totalKalori;
     } else {
-      console.log("Array kosong");
       return "0";
     }
   };
@@ -233,7 +228,6 @@ export default class Dashboard extends Component {
       this.props.navigation.navigate(navigateTo);
     };
     const { data } = this.state;
-    console.log("data: ",data);
     const cardNavigation = [
       {
         imageSource: require("../../../assets/images/opening_1.png"),
