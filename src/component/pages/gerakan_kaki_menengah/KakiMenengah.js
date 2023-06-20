@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "start",
+    justifyContent: "flex-start",
     paddingLeft: 30,
     gap: 38,
   },
