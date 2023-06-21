@@ -11,15 +11,14 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import firebase from "../../../config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isResettingPassword, setIsResettingPassword] =
-    useState(false);
-  const [containerPosition, setContainerPosition] =
-    useState(-500);
+  const [isResettingPassword, setIsResettingPassword] = useState(false);
+  const [containerPosition, setContainerPosition] = useState(-500);
 
   const loginUser = async (email, password) => {
     if (email === "") {
@@ -31,18 +30,17 @@ const Login = () => {
     }
 
     try {
-      await firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password);
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+
+      const userToken = firebase.auth().currentUser?.uid;
+      await AsyncStorage.setItem("userToken", userToken);
 
       // Redirect to dashboard page on successful login
       navigation.navigate("Dashboard");
     } catch (error) {
-      let errorMessage =
-        "Terjadi kesalahan. Silakan coba lagi.";
+      let errorMessage = "Terjadi kesalahan. Silakan coba lagi.";
       if (error.code === "auth/user-not-found") {
-        errorMessage =
-          "Pengguna dengan email ini tidak ditemukan.";
+        errorMessage = "Pengguna dengan email ini tidak ditemukan.";
       } else if (error.code === "auth/invalid-email") {
         errorMessage = "Email tidak valid.";
       } else if (error.code === "auth/wrong-password") {
@@ -54,36 +52,20 @@ const Login = () => {
 
   useEffect(() => {
     function handleKeyboardShow() {
-      LayoutAnimation.configureNext(
-        LayoutAnimation.Presets.easeInEaseOut
-      );
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       setContainerPosition(-400);
     }
 
     function handleKeyboardHide() {
-      LayoutAnimation.configureNext(
-        LayoutAnimation.Presets.easeInEaseOut
-      );
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       setContainerPosition(-500);
     }
 
-    Keyboard.addListener(
-      "keyboardDidShow",
-      handleKeyboardShow
-    );
-    Keyboard.addListener(
-      "keyboardDidHide",
-      handleKeyboardHide
-    );
+    Keyboard.addListener("keyboardDidShow", handleKeyboardShow);
+    Keyboard.addListener("keyboardDidHide", handleKeyboardHide);
     return () => {
-      Keyboard.removeListener(
-        "keyboardDidShow",
-        handleKeyboardShow
-      );
-      Keyboard.removeListener(
-        "keyboardDidHide",
-        handleKeyboardHide
-      );
+      Keyboard.removeListener("keyboardDidShow", handleKeyboardShow);
+      Keyboard.removeListener("keyboardDidHide", handleKeyboardHide);
     };
   }, []);
   const changePassword = () => {
@@ -115,12 +97,7 @@ const Login = () => {
         style={styles.image}
       />
 
-      <View
-        style={[
-          styles.containerLogin,
-          { bottom: containerPosition },
-        ]}
-      >
+      <View style={[styles.containerLogin, { bottom: containerPosition }]}>
         <Text style={styles.tittle}>Masuk</Text>
         <TextInput
           style={styles.textInput}
@@ -141,9 +118,7 @@ const Login = () => {
         />
         <View style={styles.containerButton}>
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("Registration")
-            }
+            onPress={() => navigation.navigate("Registration")}
             style={styles.styleButton1}
           >
             <Text style={styles.textButton2}>Daftar</Text>
@@ -156,9 +131,7 @@ const Login = () => {
           </TouchableOpacity>
         </View>
         <TouchableOpacity onPress={() => changePassword()}>
-          <Text style={styles.textForget}>
-            Lupa Password ?
-          </Text>
+          <Text style={styles.textForget}>Lupa Password ?</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -179,7 +152,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: 305,
     marginTop: 48,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   textForget: {
     textAlign: "center",
@@ -231,7 +204,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#888",
     marginTop: 48,
-  },  
+  },
   containerLogin: {
     width: "100%",
     height: 1025,

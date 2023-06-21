@@ -78,6 +78,7 @@ export default class Dashboard extends Component {
               data: snapshot.data(),
               historyLatihan: snapshot.data().historyLatihan,
             });
+            console.log(data);
           } else {
             console.log("user does not exist");
           }

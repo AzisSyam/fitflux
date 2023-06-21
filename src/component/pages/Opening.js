@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { TextStroke } from "react-native-textstroke";
 import { useNavigation } from "@react-navigation/native";
 const Opening = () => {
@@ -44,28 +38,25 @@ const Opening = () => {
 
       <View style={styles.containerMainText}>
         <TextStroke stroke={1.2} color="#222">
-          <Text style={styles.MainText1}>
-            Jaga tubuh kuat
-          </Text>
+          <Text style={styles.MainText1}>Jaga tubuh kuat</Text>
         </TextStroke>
-        <Text style={styles.MainText2}>bersama kami</Text>
-        <Image
-          source={require("../../../assets/images/elemenStroke2.png")}
-          style={styles.elemenStroke2}
-        />
+        <View style={styles.containerMainText2DanElemenStoke}>
+          <Text style={styles.MainText2}>bersama kami</Text>
+          <Image
+            source={require("../../../assets/images/elemenStroke2.png")}
+            style={styles.elemenStroke2}
+          />
+        </View>
       </View>
 
       <View style={styles.containerAboutText}>
         <Text style={styles.text2}>
-          jika kamu berpikir akan ada kesempatan kedua, kau
-          akan bermalas-malasan
+          jika kamu berpikir akan ada kesempatan kedua, kau akan
+          bermalas-malasan
         </Text>
       </View>
 
-      <TouchableOpacity
-        onPress={handleLogin}
-        style={styles.styleButton}
-      >
+      <TouchableOpacity onPress={handleLogin} style={styles.styleButton}>
         <Text style={styles.TextButton}>Mulai</Text>
       </TouchableOpacity>
     </View>
@@ -162,11 +153,9 @@ const styles = StyleSheet.create({
     left: -30,
   },
   elemenStroke2: {
-    width: 62,
+    width: 50,
     height: 36,
-    position: "relative",
-    right: -225,
-    top: -50,
+    resizeMode: "contain"
   },
   containerMainText: {
     width: "100%",
@@ -181,6 +170,12 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
 
+  containerMainText2DanElemenStoke:{
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
   MainText2: {
     fontSize: 36,
     fontFamily: "Roboto-Bold",
@@ -190,8 +185,6 @@ const styles = StyleSheet.create({
   containerAboutText: {
     width: "100%",
     height: 40,
-    position: "relative",
-    top: -10,
   },
   openingImage: {
     width: "118%",
