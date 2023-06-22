@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Swiper from "react-native-swiper";
 import firebase from "../../../config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -52,7 +53,8 @@ export default class Dashboard extends Component {
 
     return focusHandler;
   }
-  handleLogout = () => {
+  handleLogout = async () => {
+    await AsyncStorage.removeItem("userToken")
     firebase
       .auth()
       .signOut()
@@ -66,11 +68,13 @@ export default class Dashboard extends Component {
 
   updateDataSetelahLatihan = async () => {
     const currentUser = firebase.auth().currentUser;
-    if (currentUser) {
+    const userToken = await AsyncStorage.getItem('userToken');
+    const userId = userToken || firebase.auth().currentUser?.uid;
+    if(userId){
       firebase
         .firestore()
         .collection("users")
-        .doc(currentUser.uid)
+        .doc(userToken)
         .get()
         .then((snapshot) => {
           if (snapshot.exists) {
@@ -78,12 +82,11 @@ export default class Dashboard extends Component {
               data: snapshot.data(),
               historyLatihan: snapshot.data().historyLatihan,
             });
-            console.log(data);
           } else {
             console.log("user does not exist");
           }
         });
-    }
+    } 
   };
 
   hitungJumlahKalori = () => {

@@ -32,9 +32,10 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    // marginTop: 20,
     position: "absolute",
     left: 30,
-    bottom: 60,
+    bottom: 20,
   },
   imageButton: {
     width: 22,

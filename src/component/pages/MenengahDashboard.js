@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     top: -60,
   },
   mainContainer: {
-    width: 336,
+    width: "85%",
     height: 546,
     backgroundColor: "#fff",
     borderRadius: 24,
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 15,
     elevation: 7,
-    marginTop: 15
+    marginTop: 40,
   },
   imageCard: {
     width: "100%",
