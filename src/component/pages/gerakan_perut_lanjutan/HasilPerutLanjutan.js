@@ -9,21 +9,15 @@ import {
 } from "react-native";
 import firebase from "firebase/compat";
 import { useNavigation } from "@react-navigation/native";
+import muatDataHistory from "../../../utils/muatDataHistory";
+import tambahDataHistory from "../../../utils/tambahDataHistory";
 
 const HasilPerutLanjutan = ({ route }) => {
   const navigation = useNavigation();
-  const { menitDurasiAkhir, detikDurasiAkhir } =
-    route.params;
+  const { menitDurasiAkhir, detikDurasiAkhir } = route.params;
   const [historyLatihan, setHistoryLatihan] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
 
-  const handleClick = () => {
-    if (!isClicked) {
-      setIsClicked(true);
-      Alert.alert("History Anda telah disimpan!");
-      tambahData();
-    }
-  };
   const history = {
     jenisLatihan: "Perut",
     tingkatanLatihan: "Lanjutan",
@@ -33,55 +27,20 @@ const HasilPerutLanjutan = ({ route }) => {
     tanggal: new Date(),
   };
 
-  useEffect(() => {
-    const currentUser = firebase.auth().currentUser?.uid;
-    if (currentUser) {
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(currentUser.uid)
-        .get()
-        .then((snapshot) => {
-          if (snapshot.exists) {
-            if (snapshot.data().historyLatihan.length > 6) {
-              setHistoryLatihan(
-                snapshot.data().historyLatihan.pop()
-              );
-            }
-          } else {
-            console.log("user does not exist");
-          }
-        });
+  const handleClick = () => {
+    if (!isClicked) {
+      setIsClicked(true);
+      Alert.alert("History Anda telah disimpan!");
+      tambahDataHistory(history, historyLatihan);
     }
-  });
-  const delayAndNavigateToDashboard = () => {
-    navigation.navigate("Dashboard");
   };
 
-  const tambahData = () => {
-    const currentUser = firebase.auth().currentUser?.uid;
-    firebase
-      .firestore()
-      .collection("users")
-      .doc(currentUser.uid)
-      .get()
-      .then((doc) => {
-        let historyLatihan = doc.data().historyLatihan;
-        if (historyLatihan.length > 6) {
-          historyLatihan.pop();
-        }
-        historyLatihan.unshift(history);
-        return doc.ref.set(
-          { historyLatihan },
-          { merge: true }
-        );
-      })
-      .then(() => {
-        console.log("panjang", historyLatihan.length);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  useEffect(() => {
+    muatDataHistory();
+  });
+
+  const delayAndNavigateToDashboard = () => {
+    navigation.navigate("Dashboard");
   };
 
   return (
@@ -103,35 +62,22 @@ const HasilPerutLanjutan = ({ route }) => {
       <View style={styles.containerInformation}>
         <View style={styles.containerInformationLeft}>
           <Text style={styles.textInformation}>5</Text>
-          <Text style={styles.textInformationBottom}>
-            Latihan
-          </Text>
+          <Text style={styles.textInformationBottom}>Latihan</Text>
         </View>
         <View style={styles.containerInformationMiddle}>
           <Text style={styles.textInformation}>150</Text>
-          <Text style={styles.textInformationBottom}>
-            Kalori
-          </Text>
+          <Text style={styles.textInformationBottom}>Kalori</Text>
         </View>
         <View style={styles.containerInformationRight}>
           <Text style={styles.textInformation}>
-            {String(menitDurasiAkhir).padStart(
-              2,
-              "0"
-            )} : {String(detikDurasiAkhir).padStart(2, "0")}
+            {String(menitDurasiAkhir).padStart(2, "0")} :{" "}
+            {String(detikDurasiAkhir).padStart(2, "0")}
           </Text>
-          <Text style={styles.textInformationBottom}>
-            Durasi
-          </Text>
+          <Text style={styles.textInformationBottom}>Durasi</Text>
         </View>
       </View>
-      <TouchableOpacity
-        onPress={handleClick}
-        style={styles.buttonToDashboard2}
-      >
-        <Text style={styles.textButton}>
-          Simpan history latihan ?
-        </Text>
+      <TouchableOpacity onPress={handleClick} style={styles.buttonToDashboard2}>
+        <Text style={styles.textButton}>Simpan history latihan ?</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {

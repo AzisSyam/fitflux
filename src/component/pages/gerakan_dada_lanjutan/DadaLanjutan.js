@@ -32,7 +32,6 @@ const DadaLanjutan = () => {
     return () => clearInterval(waktu);
   };
 
-
   const moveTypeCard = [
     {
       imageSource: require("../../../../assets/gif/dada_lanjutan/jumping_jacks.gif"),

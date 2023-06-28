@@ -17,14 +17,6 @@ const HasilPerutMenengah = ({ route }) => {
   const { menitDurasiAkhir, detikDurasiAkhir } = route.params;
   const [historyLatihan, setHistoryLatihan] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
-
-  const handleClick = () => {
-    if (!isClicked) {
-      setIsClicked(true);
-      Alert.alert("History Anda telah disimpan!");
-      tambahDataHistory(history, historyLatihan);
-    }
-  };
   const history = {
     jenisLatihan: "Perut",
     tingkatanLatihan: "Menengah",
@@ -34,9 +26,19 @@ const HasilPerutMenengah = ({ route }) => {
     tanggal: new Date(),
   };
 
+  const handleClick = () => {
+    if (!isClicked) {
+      setIsClicked(true);
+      Alert.alert("History Anda telah disimpan!");
+      tambahDataHistory(history, historyLatihan);
+    }
+  };
+
   useEffect(() => {
     muatDataHistory();
   });
+
+  
   const delayAndNavigateToDashboard = () => {
     navigation.navigate("Dashboard");
   };

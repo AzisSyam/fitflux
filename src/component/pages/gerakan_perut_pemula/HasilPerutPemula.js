@@ -38,35 +38,10 @@ const HasilPerutPemula = ({ route }) => {
     muatDataHistory();
   });
 
+
   const delayAndNavigateToDashboard = () => {
     navigation.navigate("Dashboard");
   };
-
-  // const tambahDataHistory = () => {
-  //   const currentUser = firebase.auth().currentUser?.uid;
-  //   firebase
-  //     .firestore()
-  //     .collection("users")
-  //     .doc(currentUser.uid)
-  //     .get()
-  //     .then((doc) => {
-  //       let historyLatihan = doc.data().historyLatihan;
-  //       if (historyLatihan.length > 6) {
-  //         historyLatihan.pop();
-  //       }
-  //       historyLatihan.unshift(history);
-  //       return doc.ref.set(
-  //         { historyLatihan },
-  //         { merge: true }
-  //       );
-  //     })
-  //     .then(() => {
-  //       console.log("panjang", historyLatihan.length);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // };
 
   return (
     <View style={styles.container}>
