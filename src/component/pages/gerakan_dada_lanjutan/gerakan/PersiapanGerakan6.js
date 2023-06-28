@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { hitungWaktu } from "../../hitungWaktu";
+import { hitungWaktu } from "../../../../utils/hitungWaktu";
 
 const PersiapanGerakan6 = ({ route }) => {
   const [timer, setTimer] = useState(5);

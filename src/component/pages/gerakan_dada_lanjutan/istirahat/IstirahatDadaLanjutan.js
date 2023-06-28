@@ -10,7 +10,7 @@ import {
   useNavigation,
   useIsFocused,
 } from "@react-navigation/native";
-import { hitungWaktu } from "../../hitungWaktu";
+import { hitungWaktu } from "../../../../utils/hitungWaktu";
 
 const IstirahatDadaLanjutan = ({
   textLatihanSelanjutnya,
@@ -32,11 +32,6 @@ const IstirahatDadaLanjutan = ({
 
   useEffect(() => {
     const countdown = setInterval(() => {
-      console.log(
-        navigateTo,
-        menitDurasiAwal,
-        detikDurasiAwal
-      );
       setTimer((prevTimer) => prevTimer - 1);
       hitungWaktu(
         setDetikDurasiAwal,

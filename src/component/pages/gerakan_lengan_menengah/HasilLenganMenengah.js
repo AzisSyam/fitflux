@@ -34,7 +34,7 @@ const HasilLenganMenengah = ({ route }) => {
   };
 
   useEffect(() => {
-    const currentUser = firebase.auth().currentUser;
+    const currentUser = firebase.auth().currentUser?.uid;
     if (currentUser) {
       firebase
         .firestore()
@@ -59,7 +59,7 @@ const HasilLenganMenengah = ({ route }) => {
   };
 
   const tambahData = () => {
-    const currentUser = firebase.auth().currentUser;
+    const currentUser = firebase.auth().currentUser?.uid;
     firebase
       .firestore()
       .collection("users")

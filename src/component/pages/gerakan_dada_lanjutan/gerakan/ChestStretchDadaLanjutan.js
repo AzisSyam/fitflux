@@ -15,7 +15,7 @@ import {
   useNavigation,
   useIsFocused,
 } from "@react-navigation/native";
-import { hitungWaktu } from "../../hitungWaktu";
+import { hitungWaktu } from "../../../../utils/hitungWaktu";
 
 const ChestStretchDadaLanjutan = ({ route }) => {
   const navigation = useNavigation();

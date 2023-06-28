@@ -15,8 +15,7 @@ import {
   useNavigation,
   useIsFocused,
 } from "@react-navigation/native";
-import { hitungWaktu } from "../../hitungWaktu";
-
+import { hitungWaktu } from "../../../../utils/hitungWaktu";
 const CalfStretchKakiMenengah = ({ route }) => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();

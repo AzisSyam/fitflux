@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  SafeAreaView,
 } from "react-native";
 import Swiper from "react-native-swiper";
 import firebase from "../../../config";
@@ -53,8 +54,9 @@ export default class Dashboard extends Component {
 
     return focusHandler;
   }
+
   handleLogout = async () => {
-    await AsyncStorage.removeItem("userToken")
+    await AsyncStorage.removeItem("userToken");
     firebase
       .auth()
       .signOut()
@@ -67,10 +69,10 @@ export default class Dashboard extends Component {
   };
 
   updateDataSetelahLatihan = async () => {
-    const currentUser = firebase.auth().currentUser;
-    const userToken = await AsyncStorage.getItem('userToken');
-    const userId = userToken || firebase.auth().currentUser?.uid;
-    if(userId){
+    const currentUser = firebase.auth().currentUser?.uid;
+    const userToken = await AsyncStorage.getItem("userToken");
+    const userId = userToken || currentUser;
+    if (userId) {
       firebase
         .firestore()
         .collection("users")
@@ -86,7 +88,7 @@ export default class Dashboard extends Component {
             console.log("user does not exist");
           }
         });
-    } 
+    }
   };
 
   hitungJumlahKalori = () => {
@@ -258,158 +260,165 @@ export default class Dashboard extends Component {
 
     const { historyLatihan } = this.state;
     return (
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.navTop}>
-          <Text style={styles.navTopText}>Fit Flux</Text>
-          <TouchableOpacity
-            onPress={this.handleLogout}
-            style={styles.navTopButton}
-          >
-            <Text style={styles.navTopButtonText}>Keluar</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.container}>
-          <Image
-            source={require("../../../assets/images/rectangle1.png")}
-            style={styles.greyContainer}
-          />
-          <View style={styles.rectangle1}>
-            <Text style={styles.text1}>{data && `Hai ${data.lastName}`}</Text>
-            {/* <Text style={styles.text1}>Hi</Text> */}
-            <Text style={styles.text2}>Jaga tubuh kuat</Text>
-            <Text style={styles.text3}>Bersama kami</Text>
-            <Image
-              source={require("../../../assets/images/logoDashboard.png")}
-              style={styles.image}
-            />
-            <Image
-              source={require("../../../assets/images/decoration3.png")}
-              style={styles.image2}
-            />
-          </View>
-          <View style={styles.kaloriTimeWeek}>
-            <Image
-              source={require("../../../assets/images/rectangle2.png")}
-              style={styles.salmonContainer}
-            />
-            <Image
-              source={require("../../../assets/images/rectangle3.png")}
-              style={styles.blueContainer}
-            />
-            <View style={styles.leftKaloriTimeWeek}>
-              <Image
-                source={require("../../../assets/images/calori.png")}
-                style={styles.caloriImage}
-              />
-              <Text style={styles.calorieCountText}>
-                {this.hitungJumlahKalori()}
-              </Text>
-              <Text style={styles.caloriWeekText}>Kalori / minggu</Text>
-            </View>
-            <View style={styles.rightKaloriTimeWeek}>
-              <Text style={styles.timeCountText}>
-                {this.hitungJumlahDurasi()}
-              </Text>
-              <Image
-                source={require("../../../assets/images/time.png")}
-                style={styles.timeImage}
-              />
-              <Text style={styles.timeWeekText}>Menit / minggu</Text>
-            </View>
-          </View>
-
-          <Text style={styles.historyText}>History Latihan</Text>
-
-          <View style={styles.historyContainer}>
-            <ScrollView
-              contentContainerStyle={styles.cardContainer}
-              indicatorStyle="white"
+      <SafeAreaView>
+        <ScrollView style={styles.FlatList}>
+          <View style={styles.navTop}>
+            <Text style={styles.navTopText}>Fit Flux</Text>
+            <TouchableOpacity
+              onPress={this.handleLogout}
+              style={styles.navTopButton}
             >
-              {this.tampilkanHistory()}
-            </ScrollView>
+              <Text style={styles.navTopButtonText}>Keluar</Text>
+            </TouchableOpacity>
           </View>
 
-          <View style={styles.motivationContainer}>
-            <Swiper
-              autoplay
-              autoplayTimeout={5}
-              dot={<View style={styles.dot} />}
-              activeDot={<View style={[styles.dot, styles.activeDot]} />}
-            >
-              {this.motivation.map((item, index) => (
-                <View key={index} style={styles.motivationCard}>
-                  <View style={styles.cardMotivationPerson}>
-                    <Text style={styles.textMotivationPerson}>
-                      {item.personMotivation}
+          <View style={styles.container}>
+            <Image
+              source={require("../../../assets/images/rectangle1.png")}
+              style={styles.greyContainer}
+            />
+            <View style={styles.rectangle1}>
+              <Text style={styles.text1}>{data && `Hai ${data.lastName}`}</Text>
+              {/* <Text style={styles.text1}>Hi</Text> */}
+              <Text style={styles.text2}>Jaga tubuh kuat</Text>
+              <Text style={styles.text3}>Bersama kami</Text>
+              <Image
+                source={require("../../../assets/images/logoDashboard.png")}
+                style={styles.image}
+              />
+              <Image
+                source={require("../../../assets/images/decoration3.png")}
+                style={styles.image2}
+              />
+            </View>
+            <View style={styles.kaloriTimeWeek}>
+              <Image
+                source={require("../../../assets/images/rectangle2.png")}
+                style={styles.salmonContainer}
+              />
+              <Image
+                source={require("../../../assets/images/rectangle3.png")}
+                style={styles.blueContainer}
+              />
+              <View style={styles.leftKaloriTimeWeek}>
+                <Image
+                  source={require("../../../assets/images/calori.png")}
+                  style={styles.caloriImage}
+                />
+                <Text style={styles.calorieCountText}>
+                  {this.hitungJumlahKalori()}
+                </Text>
+                <Text style={styles.caloriWeekText}>Kalori / minggu</Text>
+              </View>
+              <View style={styles.rightKaloriTimeWeek}>
+                <Text style={styles.timeCountText}>
+                  {this.hitungJumlahDurasi()}
+                </Text>
+                <Image
+                  source={require("../../../assets/images/time.png")}
+                  style={styles.timeImage}
+                />
+                <Text style={styles.timeWeekText}>Menit / minggu</Text>
+              </View>
+            </View>
+
+            <Text style={styles.historyText}>History Latihan</Text>
+
+            <View style={styles.historyContainer}>
+              <ScrollView
+                contentContainerStyle={styles.cardContainer}
+                indicatorStyle="white"
+                vertical={true}
+              >
+                {this.tampilkanHistory()}
+              </ScrollView>
+            </View>
+
+            <View style={styles.motivationContainer}>
+              <Swiper
+                autoplay
+                autoplayTimeout={5}
+                dot={<View style={styles.dot} />}
+                activeDot={<View style={[styles.dot, styles.activeDot]} />}
+              >
+                {this.motivation.map((item, index) => (
+                  <View key={index} style={styles.motivationCard}>
+                    <View style={styles.cardMotivationPerson}>
+                      <Text style={styles.textMotivationPerson}>
+                        {item.personMotivation}
+                      </Text>
+                    </View>
+                    <Text style={styles.textMotivationQoutes}>
+                      {item.quoteMotivation}
                     </Text>
                   </View>
-                  <Text style={styles.textMotivationQoutes}>
-                    {item.quoteMotivation}
-                  </Text>
+                ))}
+              </Swiper>
+            </View>
+
+            {/* card navigation container */}
+            <View style={styles.cardNavigationContainer}>
+              {cardNavigation.map((cardNav, index) => (
+                <View style={styles.cardNavigation} key={index}>
+                  <Image
+                    source={cardNav.imageSource}
+                    style={styles.imageCardNavigation}
+                  />
+                  <View style={styles.cardBlur}></View>
+                  <View style={styles.cardNavigationBottom}>
+                    <Text style={styles.cardNavigationBottomLevel}>
+                      {cardNav.level}
+                    </Text>
+                    <View style={styles.cardNavigationBottomCalorieTime}>
+                      <View style={styles.cardNavigationBottomCalorie}>
+                        <Image
+                          source={require("../../../assets/images/calori_red.png")}
+                          style={styles.caloriImage2}
+                        />
+                        <View
+                          style={styles.cardNavigationBottomCalorieTimeText}
+                        >
+                          <Text style={styles.cardNavigationTextRegular}>
+                            {cardNav.calories}
+                          </Text>
+                          <Text style={styles.cardNavigationTextMedium}>
+                            Kalori
+                          </Text>
+                        </View>
+                      </View>
+                      <View style={styles.cardNavigationBottomTime}>
+                        <Image
+                          source={require("../../../assets/images/time_green.png")}
+                          style={styles.timeImage2}
+                        />
+                        <View
+                          style={styles.cardNavigationBottomCalorieTimeText}
+                        >
+                          <Text style={styles.cardNavigationTextRegular}>
+                            {cardNav.time}
+                          </Text>
+                          <Text style={styles.cardNavigationTextMedium}>
+                            Menit
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                    <TouchableOpacity
+                      onPress={() => tombolPindah(cardNav.navigateTo)}
+                      style={styles.styleButton}
+                    >
+                      <Image
+                        source={require("../../../assets/images/arrow.png")}
+                        style={styles.imageButton}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
               ))}
-            </Swiper>
+            </View>
           </View>
-
-          {/* card navigation container */}
-          <View style={styles.cardNavigationContainer}>
-            {cardNavigation.map((cardNav, index) => (
-              <View style={styles.cardNavigation} key={index}>
-                <Image
-                  source={cardNav.imageSource}
-                  style={styles.imageCardNavigation}
-                />
-                <View style={styles.cardBlur}></View>
-                <View style={styles.cardNavigationBottom}>
-                  <Text style={styles.cardNavigationBottomLevel}>
-                    {cardNav.level}
-                  </Text>
-                  <View style={styles.cardNavigationBottomCalorieTime}>
-                    <View style={styles.cardNavigationBottomCalorie}>
-                      <Image
-                        source={require("../../../assets/images/calori_red.png")}
-                        style={styles.caloriImage2}
-                      />
-                      <View style={styles.cardNavigationBottomCalorieTimeText}>
-                        <Text style={styles.cardNavigationTextRegular}>
-                          {cardNav.calories}
-                        </Text>
-                        <Text style={styles.cardNavigationTextMedium}>
-                          Kalori
-                        </Text>
-                      </View>
-                    </View>
-                    <View style={styles.cardNavigationBottomTime}>
-                      <Image
-                        source={require("../../../assets/images/time_green.png")}
-                        style={styles.timeImage2}
-                      />
-                      <View style={styles.cardNavigationBottomCalorieTimeText}>
-                        <Text style={styles.cardNavigationTextRegular}>
-                          {cardNav.time}
-                        </Text>
-                        <Text style={styles.cardNavigationTextMedium}>
-                          Menit
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                  <TouchableOpacity
-                    onPress={() => tombolPindah(cardNav.navigateTo)}
-                    style={styles.styleButton}
-                  >
-                    <Image
-                      source={require("../../../assets/images/arrow.png")}
-                      style={styles.imageButton}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            ))}
-          </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
@@ -437,8 +446,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: "Roboto-Bold",
     color: "#4B5565",
-    position: "relative",
-    top: 2,
   },
   navTopButton: {
     width: 108,

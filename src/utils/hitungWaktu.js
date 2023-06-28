@@ -7,9 +7,7 @@ const hitungWaktu = (
   setDetikDurasiAkhir((detikDurasiAkhir) => {
     if (detikDurasiAkhir === 59) {
       setDetikDurasiAkhir(0);
-      setMenitDurasiAkhir(
-        (menitDurasiAkhir) => menitDurasiAkhir + 1
-      );
+      setMenitDurasiAkhir((menitDurasiAkhir) => menitDurasiAkhir + 1);
     } else {
       return detikDurasiAkhir + 1;
     }

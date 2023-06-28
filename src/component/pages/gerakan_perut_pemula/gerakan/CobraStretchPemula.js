@@ -1,44 +1,24 @@
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-} from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import React, { useEffect, useState, useCallback } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Audio } from "expo-av";
-import {
-  useNavigation,
-  useIsFocused,
-} from "@react-navigation/native";
-import { hitungWaktu } from "../../hitungWaktu";
-
+import { useNavigation, useIsFocused } from "@react-navigation/native";
+import { hitungWaktu } from "../../../../utils/hitungWaktu";
 const CobraStretchPemula = ({ route }) => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const [timer, setTimer] = useState(20);
   const [sound, setSound] = useState(null);
   const [reminderSound, setReminderSound] = useState(null);
-  const { menitDurasiAkhir, detikDurasiAkhir } =
-    route.params;
-  const [menitDurasiAwal, setMenitDurasiAwal] = useState(
-    menitDurasiAkhir
-  );
-  const [detikDurasiAwal, setDetikDurasiAwal] = useState(
-    detikDurasiAkhir
-  );
+  const { menitDurasiAkhir, detikDurasiAkhir } = route.params;
+  const [menitDurasiAwal, setMenitDurasiAwal] = useState(menitDurasiAkhir);
+  const [detikDurasiAwal, setDetikDurasiAwal] = useState(detikDurasiAkhir);
 
   const playSound = useCallback(async () => {
     try {
       if (timer === 20) {
-        const { sound: move } =
-          await Audio.Sound.createAsync(
-            require("../../../../../assets/sounds/perut_pemula/cobra_stretch.mp3")
-          );
+        const { sound: move } = await Audio.Sound.createAsync(
+          require("../../../../../assets/sounds/perut_pemula/cobra_stretch.mp3")
+        );
         setSound(move);
         await move.playAsync();
         console.log("Suara diputar");
@@ -55,10 +35,9 @@ const CobraStretchPemula = ({ route }) => {
   const playReminder = useCallback(async () => {
     try {
       if (timer === 3) {
-        const { sound: reminderSound } =
-          await Audio.Sound.createAsync(
-            require("../../../../../assets/sounds/pengingat_321.mp3")
-          );
+        const { sound: reminderSound } = await Audio.Sound.createAsync(
+          require("../../../../../assets/sounds/pengingat_321.mp3")
+        );
         setReminderSound(reminderSound);
         await reminderSound.playAsync();
         console.log("Suara pengingat diputar");
@@ -140,9 +119,7 @@ const CobraStretchPemula = ({ route }) => {
           style={styles.gift}
         />
       </View>
-      <Text style={styles.instructionText}>
-        COBRA STRETCH
-      </Text>
+      <Text style={styles.instructionText}>COBRA STRETCH</Text>
       <Text style={styles.timerText}>
         {timer < 10 ? `00:0${timer}` : `00:${timer}`}
       </Text>
