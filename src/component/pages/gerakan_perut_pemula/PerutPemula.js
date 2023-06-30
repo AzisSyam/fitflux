@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 75,
     position: "absolute",
-    bottom: 10,
+    bottom: 20,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
