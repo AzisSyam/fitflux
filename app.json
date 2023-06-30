@@ -2,26 +2,23 @@
   "expo": {
     "name": "fitflux",
     "owner": "azissyam98",
-    "slug": "fit-flux",
+    "slug": "fitflux",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "/assets/images/logoDashboard.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.azissyam98.fitflux"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/splash.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.azissyam98.fitflux"
@@ -34,14 +31,14 @@
     },
     "extra": {
       "eas": {
-        "projectId": "a4681281-125d-42e4-8c89-56df94989625"
+        "projectId": "8e8a9a9b-3262-4f33-93bd-21158b7fa52c"
       }
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/a4681281-125d-42e4-8c89-56df94989625"
+      "url": "https://u.expo.dev/8e8a9a9b-3262-4f33-93bd-21158b7fa52c"
     }
   }
 }

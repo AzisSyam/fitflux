@@ -1,37 +1,12 @@
-
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import hitungDurasiAwal from "../../../utils/hitungDurasiAwal";
 
 const PerutPemula = () => {
   const [menitDurasiAwal, setMenitDurasiAwal] = useState(0);
   const [detikDurasiAwal, setDetikDurasiAwal] = useState(0);
   const navigation = useNavigation();
-
-  const hitungDurasi = () => {
-    let durasi;
-    durasi = setInterval(() => {
-      setDetikDurasiAwal((detikDurasiAwal) => {
-        if (detikDurasiAwal === 59) {
-          setDetikDurasiAwal(0);
-          setMenitDurasiAwal(
-            (menitDurasiAwal) => menitDurasiAwal + 1
-          );
-        } else {
-          return detikDurasiAwal + 1;
-        }
-      });
-    }, 1000);
-    console.log(menitDurasiAwal, ":", detikDurasiAwal);
-    return () => clearInterval(waktu);
-  };
-
 
   const moveTypeCard = [
     {
@@ -63,9 +38,7 @@ const PerutPemula = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("PemulaDashboard")
-        }
+        onPress={() => navigation.navigate("PemulaDashboard")}
         style={styles.buttonToDBeforePage}
       >
         <Image
@@ -95,17 +68,9 @@ const PerutPemula = () => {
                 source={require("../../../../assets/images/calori_red.png")}
                 style={styles.caloriImage2}
               />
-              <View
-                style={styles.cardBottomCalorieTimeText}
-              >
-                <Text style={styles.cardTextRegular}>
-                  100
-                </Text>
-                <Text
-                  style={styles.cardNavigationTextMedium}
-                >
-                  Kalori
-                </Text>
+              <View style={styles.cardBottomCalorieTimeText}>
+                <Text style={styles.cardTextRegular}>100</Text>
+                <Text style={styles.cardNavigationTextMedium}>Kalori</Text>
               </View>
             </View>
             <View style={styles.cardNavigationBottomTime}>
@@ -113,17 +78,9 @@ const PerutPemula = () => {
                 source={require("../../../../assets/images/time_green.png")}
                 style={styles.timeImage2}
               />
-              <View
-                style={styles.cardBottomCalorieTimeText}
-              >
-                <Text style={styles.cardTextRegular}>
-                  10
-                </Text>
-                <Text
-                  style={styles.cardNavigationTextMedium}
-                >
-                  Menit
-                </Text>
+              <View style={styles.cardBottomCalorieTimeText}>
+                <Text style={styles.cardTextRegular}>10</Text>
+                <Text style={styles.cardNavigationTextMedium}>Menit</Text>
               </View>
             </View>
           </View>
@@ -132,21 +89,14 @@ const PerutPemula = () => {
       <View style={styles.movementTypeContainer}>
         {moveTypeCard.map((moving, index) => {
           return (
-            <View
-              style={styles.cardmovementType}
-              key={index}
-            >
+            <View style={styles.cardmovementType} key={index}>
               <Image
                 source={moving.imageSource}
                 style={styles.cardImageExercise}
               />
               <View style={styles.cardTextExercise}>
-                <Text style={styles.cardTextTop}>
-                  {moving.moveTypee}
-                </Text>
-                <Text style={styles.cardTextBottom}>
-                  {moving.duration}
-                </Text>
+                <Text style={styles.cardTextTop}>{moving.moveTypee}</Text>
+                <Text style={styles.cardTextBottom}>{moving.duration}</Text>
               </View>
             </View>
           );
@@ -156,7 +106,12 @@ const PerutPemula = () => {
       {/* tombol mulai */}
       <TouchableOpacity
         onPress={() => {
-          hitungDurasi();
+          hitungDurasiAwal(
+            detikDurasiAwal,
+            menitDurasiAwal,
+            setDetikDurasiAwal,
+            setMenitDurasiAwal
+          );
           navigation.navigate("PersiapanGerakan", {
             menitDurasiAwal: menitDurasiAwal,
             detikDurasiAwal: detikDurasiAwal,

@@ -11,6 +11,7 @@
     "preview": {
       "distribution": "internal",
       "channel": "preview"
+      
     },
     "production": {
       "channel": "production"
@@ -20,3 +21,4 @@
     "production": {}
   }
 }
+
